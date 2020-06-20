@@ -3,7 +3,7 @@
    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
    
 <div class="container">
-<div class="row">
+<div class="row2" id="body-row">
 
    <div class="col-md-3">
                
@@ -12,13 +12,6 @@
             </div>
 
 
-	<c:if test="${not empty message}">	
-		<div class="row">			
-			<div class="col-xs-12 col-md-offset-2 col-md-8">			
-				<div class="alert alert-info fade in">${message}</div>				
-			</div>
-		</div>
-	</c:if>
 
 	
 		<div class="col-md-offset-2 col-md-7">
@@ -32,40 +25,79 @@
 				</div>
 
 				<div class="panel-body">
-					<sf:form class="form-horizontal" modelAttribute="product" action="${contextRoot}/manage/products" method="POST" enctype="multipart/form-data">
+					<sf:form class="form-horizontal" modelAttribute="brick" action="${contextRoot}/manage/bricks" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
-							<label class="control-label col-md-4">Name</label>
+							<label class="control-label col-md-4">Supplier Name</label>
 							<div class="col-md-8">
-								<sf:input type="text" path="name" id="name" class="form-control"
-									placeholder="Product Name" />
-								<sf:errors path="name" cssClass="help-block" element="em"/> 
+								<sf:input type="text" path="supplier_name" id="supplier_name" class="form-control"
+									placeholder="Supplier Name" />
+								<sf:errors path="supplier_name" cssClass="help-block" element="em"/> 
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label col-md-4">Brand</label>
+							<label class="control-label col-md-4">Brick Color</label>
 							<div class="col-md-8">
-								<sf:input type="text" path="brand" id="brand" class="form-control"
-									placeholder="Brand Name" /> 
-								<sf:errors path="brand" cssClass="help-block" element="em"/>	
+								<sf:input type="text" path="brick_color" id="brick_color" class="form-control"
+									placeholder="Brick Color" /> 
+								<sf:errors path="brick_color" cssClass="help-block" element="em"/>	
 							</div>
 						</div>
+ 
+						<%-- <div class="form-group">
+							<label class="control-label col-md-4">Brick Size</label>
+							<div class="col-md-8">
+								<sf:input type="number" path="brick_size" id="brick_size" class="form-control"
+									placeholder="Enter Brick Size" />
+								<sf:errors path="brick_size" cssClass="help-block" element="em"/>
+							</div>
+						</div>
+ --%>
 
-						<div class="form-group">
+	<div class="form-group">
+							<label class="control-label col-md-4">Category</label>
+							<div class="col-md-8">
+								<sf:select path="categoryId" items="${brickcategories}" itemLabel="name" itemValue="id" class="form-control"/>
+							
+								<div class="text-right">
+									<br/>			
+									<sf:hidden path="id"/>
+									<sf:hidden path="code"/>
+									<sf:hidden path="supplierId"/>
+																						
+									<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myCategoryModal">Add New Category</button>
+								</div>							
+							</div>
+							
+						</div>
+
+
+						<%-- <div class="form-group">
 							<label class="control-label col-md-4">Description</label>
 							<div class="col-md-8">
 								<sf:textarea path="description" id="description" rows="4" class="form-control"
 									placeholder="Enter your description here!" /> 
 								<sf:errors path="description" cssClass="help-block" element="em"/>
 							</div>
+						</div> --%>
+						<div class="form-group">
+							<label class="control-label col-md-4">Truck Number</label>
+							<div class="col-md-8">
+								<sf:input type="text" path="truck_no" id="truck_no" class="form-control"
+									placeholder="Truck Number" /> 
+								<sf:errors path="truck_no" cssClass="help-block" element="em"/>	
+							</div>
 						</div>
+						
+						
+						
 
 						<div class="form-group">
-							<label class="control-label col-md-4">Unit Price</label>
+							<label class="control-label col-md-4">MHL</label>
 							<div class="col-md-8">
-								<sf:input type="number" path="unitPrice" id="unitPrice" class="form-control"
+								<sf:input type="text" path="mhl" id="mhl" class="form-control"
 									placeholder="Enter Unit Price" />
-								<sf:errors path="unitPrice" cssClass="help-block" element="em"/>
+								<sf:errors path="mhl" cssClass="help-block" element="em"/>
 							</div>
 						</div>
 
@@ -79,16 +111,50 @@
 						</div>
 
 
-						<div class="form-group">
-							<label class="control-label col-md-4">Upload a file</label>
+
+		<div class="form-group">
+		<label class="control-label col-md-4">Date</label>
 							<div class="col-md-8">
-								<sf:input type="file" path="file" class="form-control"/>
-								<sf:errors path="file" cssClass="help-block" element="em"/> 
+							<sf:input type="text" path="date" id="date" class="form-control" data-date-format="YYYY/MM/DD"
+									placeholder="Enter Date" />
+								<sf:errors path="date" cssClass="help-block" element="em"/> 
 							</div>
 						</div>
+							
+
+						
+	 <div class="form-group">
+							<label class="control-label col-md-4">Amount Paid</label>
+							<div class="col-md-8">
+								<sf:input type="number" path="amount_paid" id="amount_paid" class="form-control"
+									placeholder="Enter Amount" />
+								<sf:errors path="amount_paid" cssClass="help-block" element="em"/> 
+							</div>
+						</div> 	 
+						
+						
+	 <div class="form-group">
+							<label class="control-label col-md-4">Excess Paid</label>
+							<div class="col-md-8">
+								<sf:input type="number" path="excess_paid" id="excess_paid" class="form-control"
+									placeholder="Enter Excess Paid" />
+								<sf:errors path="excess_paid" cssClass="help-block" element="em"/> 
+							</div>
+						</div> 	 
+						
+						
+	 <div class="form-group">
+							<label class="control-label col-md-4">Total Amount</label>
+							<div class="col-md-8">
+								<sf:input type="number" path="total_amount" id="total_amount" class="form-control"
+									placeholder="Enter Total Amount" />
+								<sf:errors path="total_amount" cssClass="help-block" element="em"/> 
+							</div>
+						</div> 	 
+						
 
 
-						<div class="form-group">
+					<%-- 	<div class="form-group">
 							<label class="control-label col-md-4">Category</label>
 							<div class="col-md-8">
 								<sf:select path="categoryId" items="${categories}" itemLabel="name" itemValue="id" class="form-control"/>
@@ -103,7 +169,7 @@
 								</div>							
 							</div>
 							
-						</div>
+						</div> --%>
 
 
 					
@@ -117,9 +183,9 @@
 									<sf:hidden path="id"/>
 									<sf:hidden path="code"/>
 									<sf:hidden path="supplierId"/>
-									<sf:hidden path="active"/>											
+									<%-- <sf:hidden path="active"/>											
 									<sf:hidden path="purchases"/>	
-									<sf:hidden path="views"/>	
+									<sf:hidden path="views"/> --%>	
 							</div>
 						</div>						
 										
@@ -132,6 +198,12 @@
 		</div>
 
 	</div>
+	
+	
+	
+	
+	<%-- for ending row before starting a new row --%>
+	
 	<%-- <!-- Modal -->
 	<div class="modal fade" id="myCategoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
@@ -172,18 +244,52 @@
 	  </div>
 	</div> --%>
 	
-	
-		 <div class="col-md-offset-1 col-md-18">
+	 
+	 
+	 
+	<!-- 	 <div class="col-md-offset-1 col-md-18"> -->
+
+
 
 	
+	<c:if test="${not empty message}">	
+		<div class="row"> 		
+			<div class="col-xs-12 col-md-offset-2 col-md-8">			
+				<div class="alert alert-info fade in">${message}</div>				
+			</div>
+		</div>
+	</c:if>
+	
+</div>
+
+
+<div class="container">
+
+<div class="row">
+   <div class="col-md-3">
+               
+               <p> &#160; </p>
+               <p> &#160; </p>
+               
+            </div>
+    </div>
+        </div>
+
+
+
+<div class="container">
+
+	<div class="row">
+	
 	<hr/>	
-	<h1>Available Products</h1>
+	<h3>Bricks Details </h3>
 	<hr/> 
 	
 	
 				
 		
-		<div class='col-xs-20'>
+		<!-- <div class='col-xs-20'> -->
+		<div class='col-xs-12'>
 		   <div style="overflow:auto">
 		   
 		    <!-- Products table for Admin -->
@@ -192,13 +298,19 @@
 				<thead>					
 					<tr>					 
 						<th>Id</th>
-						<th>&#160;</th>
-						<th>Name</th>
-						<th>Brand</th>
-						<th>Qty. Avail</th>
-						<th>Unit Price</th>
-						<th>Activate</th>				
+					<!-- 	<th>&#160;</th> -->
+					   <!--  <th>Code</th> -->
+						<th>Supplier Name</th>
+						<th>Brick Color</th>
+						<th>Truck Number</th>
+						<th>Mhl</th>
+						<th>Quantity</th>
+						<th>Date</th>
+						<th>Amount Paid</th>
+						<th>Excess Paid</th>
+						<th>Total Amount</th>	
 						<th>Edit</th>
+						<!-- <th>Edit</th> -->
 					</tr>					
 				</thead>
 				
@@ -266,12 +378,17 @@
 				<tfoot>
 					<tr>					
 						<th>Id</th>
-						<th>&#160;</th> 
-						<th>Name</th>
-						<th>Brand</th>
-						<th>Qty. Avail</th>
-						<th>Unit Price</th>
-						<th>Activate</th>				
+					<!-- 	<th>&#160;</th> -->
+					  <!--   <th>Code</th> -->
+						<th>Supplier Name</th>
+						<th>Brick Color</th>
+						<th>Truck Number</th>
+						<th>Mhl</th>
+						<th>Quantity</th>
+						<th>Date</th>
+						<th>Amount Paid</th>
+						<th>Excess Paid</th>
+						<th>Total Amount</th>
 						<th>Edit</th>
 					</tr>									
 				</tfoot>
@@ -288,7 +405,8 @@
 					
 				
 		
-	
 	</div>
 	
-</div>
+	</div>
+	</div>
+<!-- </div> -->
