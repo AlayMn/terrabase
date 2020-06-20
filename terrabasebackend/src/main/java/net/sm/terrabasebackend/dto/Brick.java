@@ -1,6 +1,5 @@
-
 package net.sm.terrabasebackend.dto;
- 
+
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -20,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 //@Component
 @Entity
-public class Product implements Serializable {
+public class Brick implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -36,7 +35,7 @@ public class Product implements Serializable {
 		private String supplier_name;
 		@NotBlank(message = "Please enter the brick color!")
 		private String brick_color;
-	 
+		
 		@NotBlank(message = "Please enter the truck number!")
 		private String truck_no;
 		@NotBlank(message = "Please enter the Mhl!")
@@ -82,7 +81,7 @@ public class Product implements Serializable {
 
 		
 		
-	public Product() {
+	public Brick() {
 		
 		this.code = "PRD" + UUID.randomUUID().toString().substring(26).toUpperCase();
 		
@@ -115,7 +114,7 @@ public class Product implements Serializable {
 		public void setBrick_color(String brick_color) {
 			this.brick_color = brick_color;
 		}
-	
+		
 		public String getTruck_no() {
 			return truck_no;
 		}
@@ -188,7 +187,7 @@ public class Product implements Serializable {
 		// toString for debugging
 		@Override
 		public String toString() {
-			return "Product [id=" + id + ", code=" + code + ", supplier_name=" + supplier_name + ", brick_color=" + brick_color + 
+			return "Brick [id=" + id + ", code=" + code + ", supplier_name=" + supplier_name + ", brick_color=" + brick_color + 
 					", truck_no=" + truck_no + ", mhl=" + mhl + ", quantity=" + quantity +", date="+ date+", amount_paid="+ amount_paid+", excess_paid="+excess_paid+", total_amount="+total_amount
 					+ ", categoryId=" + categoryId + ", supplierId=" + supplierId +  "]";
 		}

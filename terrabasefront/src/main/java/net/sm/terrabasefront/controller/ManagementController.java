@@ -22,11 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 import net.kzn.onlineshopping.util.FileUploadUtility;
 import net.kzn.onlineshopping.validator.ProductValidator;*/
 import net.sm.terrabasebackend.dao.BrickCategoryDAO;
-import net.sm.terrabasebackend.dao.ProductDAO;
+import net.sm.terrabasebackend.dao.BrickDAO;
 /*
 import net.sm.terrabasebackend.dao.BrickDAO;*/
 import net.sm.terrabasebackend.dto.BrickCategory;
-import net.sm.terrabasebackend.dto.Product;
+import net.sm.terrabasebackend.dto.Brick;
 /*
 import net.sm.terrabasebackend.dto.Brick;*/
 
@@ -36,7 +36,7 @@ public class ManagementController {
 	
 	
 	@Autowired
-	private ProductDAO productDAO;
+	private BrickDAO brickDAO;
 	
 	@Autowired
 	private BrickCategoryDAO categoryDAO;
@@ -46,7 +46,7 @@ public class ManagementController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ManagementController.class);
 	
-	@RequestMapping(value="/products", method=RequestMethod.GET)
+	@RequestMapping(value="/bricks", method=RequestMethod.GET)
 	public ModelAndView showManageProducts(@RequestParam(name="operation", required=false) String operation) {
 		
 			
@@ -54,16 +54,16 @@ public class ManagementController {
 			
 			mv.addObject("userClickManageProducts", true);
 			mv.addObject("title", "Manage Products");
-			Product nProduct = new Product();
+			Brick nProduct = new Brick();
 			
 			//set few of the fields
-		//	nProduct.setSupplierId(1);
+			nProduct.setSupplierId(1);
 		//	nProduct.setActive(true);
-			mv.addObject("product", nProduct);
+			mv.addObject("brick", nProduct);
 			
 			if(operation!=null) {
 				
-				if(operation.equals("product"))
+				if(operation.equals("brick"))
 				{
 					mv.addObject("message", "Product Submitted Successfully!");
 				}
@@ -106,8 +106,8 @@ public class ManagementController {
 			return mv;
 		}*/
 	
-		
-	@RequestMapping(value="/{id}/product", method=RequestMethod.GET)
+	
+	@RequestMapping(value="/{id}/brick", method=RequestMethod.GET)
 	public ModelAndView showEditProducts(@PathVariable int id) {
 		
 		
@@ -115,18 +115,18 @@ public class ManagementController {
 		
 		mv.addObject("userClickManageProducts", true);
 		mv.addObject("title", "Manage Products");
-		Product nProduct = productDAO.get(id);
+		Brick nProduct = brickDAO.get(id);
 		
 		//set the product fetch from database
-	    mv.addObject("product", nProduct);
+	    mv.addObject("brick", nProduct);
 		
 	
 		
 		return mv;
 	}
 	
-	
-	/*@RequestMapping(value = "/products", method=RequestMethod.POST)
+	/*
+	@RequestMapping(value = "/products", method=RequestMethod.POST)
 	public String managePostProduct(@Valid @ModelAttribute("product") Product mProduct, 
 			BindingResult results, Model model, HttpServletRequest request) {
 		
@@ -164,12 +164,12 @@ public class ManagementController {
 	}
 */
 	
-	/*
-	@RequestMapping(value="/products", method=RequestMethod.POST)
-	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model, HttpServletRequest request) {
+	
+	@RequestMapping(value="/bricks", method=RequestMethod.POST)
+	public String handleProductSubmission(@Valid @ModelAttribute("brick") Brick mProduct, BindingResult results, Model model, HttpServletRequest request) {
 		
 		//handle  image validation for new products
-		if(mProduct.getId()==0)
+	/*	if(mProduct.getId()==0)
 		{
 		new ProductValidator().validate(mProduct, results);
 		}
@@ -179,7 +179,7 @@ public class ManagementController {
 			{
 				new ProductValidator().validate(mProduct, results);
 			}
-		}
+		}*/
 		
 		//check if there are any errors
 		if(results.hasErrors())
@@ -197,26 +197,26 @@ public class ManagementController {
 		// create a new record
 		if(mProduct.getId() == 0) {
 
-			productDAO.add(mProduct);
+			brickDAO.add(mProduct);
 				
 		}
 		else
 		{
 			//udate the product if id is not 0
-			productDAO.update(mProduct);
+			brickDAO.update(mProduct);
 		}
 		
-		if(!mProduct.getFile().getOriginalFilename().equals(""))
+	/*	if(!mProduct.getFile().getOriginalFilename().equals(""))
 		{
 			FileUploadUtility.uploadFile(request,mProduct.getFile(), mProduct.getCode());
-		}
+		}*/
 		
 		
-		return "redirect:/manage/products?operation=product";
+		return "redirect:/manage/bricks?operation=brick";
 		
 	}
-		*/
-  	@RequestMapping(value="/product/{id}/activation", method=RequestMethod.POST)
+		
+  	/*@RequestMapping(value="/product/{id}/activation", method=RequestMethod.POST)
 	@ResponseBody
 	public String handleProductActivation(@PathVariable int id)
 	{
@@ -231,16 +231,16 @@ public class ManagementController {
 	return (isActive)? "You have successfully deactivated the product with id" + product.getId()
 	               : "You have successfully activated the product with id" + product.getId();
 	}
-	
-	@RequestMapping(value = "/category", method=RequestMethod.POST)
-	public String managePostCategory(@ModelAttribute("category") BrickCategory mCategory, HttpServletRequest request) {					
+	*/
+	@RequestMapping(value = "/brickcategory", method=RequestMethod.POST)
+	public String managePostCategory(@ModelAttribute("brickcategory") BrickCategory mCategory, HttpServletRequest request) {					
 		categoryDAO.add(mCategory);		
-		return "redirect:" + request.getHeader("Referer") + "?success=category";
+		return "redirect:" + request.getHeader("Referer") + "?success=brickcategory";
 	}
 	
 	
 	
-	@ModelAttribute("categories")
+	@ModelAttribute("brickcategories")
 	public List<BrickCategory> getCategories() {
 		return categoryDAO.list();
 	}

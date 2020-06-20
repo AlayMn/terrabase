@@ -8,15 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.sm.terrabasebackend.dao.ProductDAO;
-import net.sm.terrabasebackend.dto.Product;
+import net.sm.terrabasebackend.dao.BrickDAO;
+import net.sm.terrabasebackend.dto.Brick;
 
 
 
 
-@Repository("productDAO")
+@Repository("brickDAO")
 @Transactional
-public class ProductDAOImpl implements ProductDAO {
+public class BrickDAOImpl implements BrickDAO {
 
 
 	@Autowired
@@ -26,25 +26,25 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	
 	@Override
-	public Product get(int productId) {
+	public Brick get(int brickId) {
 		// TODO Auto-generated method stub
 		try {			
 			return sessionFactory
 					.getCurrentSession()
-						.get(Product.class,Integer.valueOf(productId));			
+						.get(Brick.class,Integer.valueOf(brickId));			
 		}
 		catch(Exception ex) {		
 			ex.printStackTrace();			
 		}
 		return null;
-	} 
+	}
   
 	@Override
-	public List<Product> list() {
+	public List<Brick> list() {
 		// TODO Auto-generated method stub
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery("FROM Product" , Product.class)
+					.createQuery("FROM Brick" , Brick.class)
 						.getResultList();
 		
 		
@@ -54,12 +54,12 @@ public class ProductDAOImpl implements ProductDAO {
 	}
   
 	@Override
-	public boolean add(Product product) {
+	public boolean add(Brick brick) {
 		// TODO Auto-generated method stub
 		try {			
 			sessionFactory
 					.getCurrentSession()
-						.persist(product);
+						.persist(brick);
 			return true;
 		}
 		catch(Exception ex) {		
@@ -69,12 +69,12 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public boolean update(Product product) {
+	public boolean update(Brick brick) {
 		// TODO Auto-generated method stub
 		try {			
 			sessionFactory
 					.getCurrentSession()
-						.update(product);
+						.update(brick);
 			return true;
 		}
 		catch(Exception ex) {		
@@ -84,13 +84,13 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public boolean delete(Product product) {
+	public boolean delete(Brick brick) {
 		// TODO Auto-generated method stub
 try {
 			
 		//	product.setActive(false);
 			// call the update method
-			return this.update(product);
+			return this.update(brick);
 		}
 		catch(Exception ex) {		
 			ex.printStackTrace();			
@@ -99,14 +99,14 @@ try {
 	}
 
 	@Override
-	public List<Product> getProductsByParam(String param, int count) {
+	public List<Brick> getBricksByParam(String param, int count) {
 		// TODO Auto-generated method stub
 
-		String query = "FROM Product  ORDER BY " + param + " DESC";
+		String query = "FROM Brick  ORDER BY " + param + " DESC";
 		
 		return sessionFactory
 					.getCurrentSession()
-					.createQuery(query,Product.class)
+					.createQuery(query,Brick.class)
 					.setFirstResult(0)
 					.setMaxResults(count)
 					.getResultList();
@@ -114,34 +114,34 @@ try {
 	}
 
 	@Override
-	public List<Product> listActiveProducts() {
+	public List<Brick> listActiveBricks() {
 		// TODO Auto-generated method stub
-		String selectActiveProducts = "FROM Product ";
+		String selectActiveBricks = "FROM Product ";
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery(selectActiveProducts, Product.class)
+					.createQuery(selectActiveBricks, Brick.class)
 						.setParameter("active", true)
 							.getResultList();
 	}
 
 	@Override
-	public List<Product> listActiveProductsByCategory(int categoryId) {
+	public List<Brick> listActiveBricksByCategory(int categoryId) {
 		// TODO Auto-generated method stub
-		String selectActiveProductsByCategory = "FROM Product  AND categoryId = :categoryId";
+		String selectActiveBricksByCategory = "FROM Brick  AND categoryId = :categoryId";
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery(selectActiveProductsByCategory, Product.class)
+					.createQuery(selectActiveBricksByCategory, Brick.class)
 						.setParameter("active", true)
 						.setParameter("categoryId",categoryId)
 							.getResultList();
 	}
 
 	@Override
-	public List<Product> getLatestActiveProducts(int count) {
+	public List<Brick> getLatestActiveBricks(int count) {
 		// TODO Auto-generated method stub
 		return sessionFactory
 				.getCurrentSession()
-					.createQuery("FROM Product  ORDER BY id", Product.class)
+					.createQuery("FROM Brick  ORDER BY id", Brick.class)
 						.setParameter("active", true)
 							.setFirstResult(0)
 							.setMaxResults(count)

@@ -36,7 +36,7 @@
                     
                     
             
-                <a href="${contextRoot}/manage/products" class="list-group-item list-group-item-action bg-dark text-white">
+                <a href="${contextRoot}/manage/bricks" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">&nbsp;&nbsp;&nbsp;&nbsp;>Bricks</span>
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-dark text-white">

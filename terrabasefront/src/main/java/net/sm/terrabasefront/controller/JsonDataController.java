@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import net.sm.terrabasebackend.dao.ProductDAO;
-import net.sm.terrabasebackend.dto.Product;
+import net.sm.terrabasebackend.dao.BrickDAO;
+import net.sm.terrabasebackend.dto.Brick;
 
 
 @Controller
@@ -18,7 +18,7 @@ public class JsonDataController {
 
 	
 	@Autowired
-	private ProductDAO productDAO;
+	private BrickDAO brickDAO;
 
 /*
 	@Autowired
@@ -26,11 +26,11 @@ public class JsonDataController {
 */
 	
 	
-	@RequestMapping("/all/products")
+	@RequestMapping("/all/bricks")
      @ResponseBody
-	public List<Product> getAllProducts() {
+	public List<Brick> getAllBricks() {
 		
-		return productDAO.listActiveProducts();
+		return brickDAO.listActiveBricks();
 		
 	}
 	
@@ -42,10 +42,10 @@ public class JsonDataController {
 		
 	}*/
 	
-	@RequestMapping("/admin/all/products")
+	@RequestMapping("/admin/all/bricks")
 	@ResponseBody
-	public List<Product> getAllProductsForAdmin() {		
-		return productDAO.list();
+	public List<Brick> getAllBricksForAdmin() {		
+		return brickDAO.list();
 				
 	}	
 	
@@ -59,11 +59,11 @@ public class JsonDataController {
 	
 	*/
 	
-	@RequestMapping("/category/{id}/products")
+	@RequestMapping("/brickcategory/{id}/bricks")
     @ResponseBody
-	public List<Product> getProductsByCategory(@PathVariable int id) {
+	public List<Brick> getBricksByCategory(@PathVariable int id) {
 		
-		return productDAO.listActiveProductsByCategory(id);
+		return brickDAO.listActiveBricksByCategory(id);
 		
 	}
 	
