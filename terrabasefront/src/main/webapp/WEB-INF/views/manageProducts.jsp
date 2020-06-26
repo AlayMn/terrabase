@@ -3,7 +3,7 @@
    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
    
 <div class="container">
-<div class="row2" id="body-row">
+<div class="row2">
 
    <div class="col-md-3">
                
@@ -26,7 +26,7 @@
 
 				<div class="panel-body">
 					<sf:form class="form-horizontal" modelAttribute="brick" action="${contextRoot}/manage/bricks" method="POST" enctype="multipart/form-data">
-						<div class="form-group">
+					<%-- 	<div class="form-group">
 							<label class="control-label col-md-4">Supplier Name</label>
 							<div class="col-md-8">
 								<sf:input type="text" path="supplier_name" id="supplier_name" class="form-control"
@@ -34,13 +34,41 @@
 								<sf:errors path="supplier_name" cssClass="help-block" element="em"/> 
 							</div>
 						</div>
-						
-						<div class="form-group">
-							<label class="control-label col-md-4">Brick Color</label>
+						 --%>
+						 
+						 	<div class="form-group">
+							<label class="control-label col-md-4">Supplier Name</label>
 							<div class="col-md-8">
-								<sf:input type="text" path="brick_color" id="brick_color" class="form-control"
-									placeholder="Brick Color" /> 
-								<sf:errors path="brick_color" cssClass="help-block" element="em"/>	
+						<%-- 	
+							<select name="bricksupplier" id="bricksupplier">
+							<c:forEach var = "options" items="$ {bricksuppliers}">
+							 <option value="${options.id }">${options.name}</option>
+							
+							</c:forEach>
+							</select> --%>
+							
+								<sf:select path="supplier_name" items="${bricksuppliers}" itemLabel="name" itemValue="name" class="form-control"/>
+							
+								<div class="text-right">
+									<br/>			
+									<sf:hidden path="id"/>
+								<%-- 	<sf:hidden path="code"/> --%>
+									<sf:hidden path="supplierId"/>
+									<%-- <sf:hidden path="supplier_name"/> --%>
+																						
+								</div>							
+							</div>
+							
+						</div>
+						 
+						 
+						 
+						<div class="form-group">
+							<label class="control-label col-md-4">Challan No.</label>
+							<div class="col-md-8">
+								<sf:input type="text" path="challan_no" id="challan_no" class="form-control"
+									placeholder="Challan No." /> 
+								<sf:errors path="challan_no" cssClass="help-block" element="em"/>	
 							</div>
 						</div>
  
@@ -52,23 +80,23 @@
 								<sf:errors path="brick_size" cssClass="help-block" element="em"/>
 							</div>
 						</div>
- --%>
+ 						--%>
 
 	<div class="form-group">
 							<label class="control-label col-md-4">Category</label>
 							<div class="col-md-8">
-								<sf:select path="categoryId" items="${brickcategories}" itemLabel="name" itemValue="id" class="form-control"/>
+								<sf:select path="category" items="${brickcategories}" itemLabel="name" itemValue="name" class="form-control"/>
 							
 								<div class="text-right">
 									<br/>			
 									<sf:hidden path="id"/>
-									<sf:hidden path="code"/>
-									<sf:hidden path="supplierId"/>
+									<%-- <sf:hidden path="code"/> --%>
+									<sf:hidden path="categoryId"/>
 																						
-									<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myCategoryModal">Add New Category</button>
-								</div>							
+							<!-- 		<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myCategoryModal">Add New Category</button>
+							 -->	</div>							
 							</div>
-							
+							 
 						</div>
 
 
@@ -104,8 +132,8 @@
 						<div class="form-group">
 							<label class="control-label col-md-4">Quantity</label>
 							<div class="col-md-8">
-								<sf:input type="number" path="quantity" id="quantity" class="form-control"
-									placeholder="Enter Quantity" />
+								<sf:input type="number" path="quantity" id="quantity" class="form-control"  oninput="calculate();" 
+								 placeholder="Enter Quantity"  />
 								<sf:errors path="quantity" cssClass="help-block" element="em"/> 
 							</div>
 						</div>
@@ -121,34 +149,45 @@
 							</div>
 						</div>
 							
+							
+							
+						<div class="form-group">
+							<label class="control-label col-md-4">Rate</label>
+							<div class="col-md-8">
+								<sf:input type="number" path="rate" id="rate" class="form-control" oninput="calculate();" 
+									placeholder="Enter Rate" />
+								<sf:errors path="rate" cssClass="help-block" element="em"/> 
+							</div>
+						</div>
+							
 
 						
 	 <div class="form-group">
-							<label class="control-label col-md-4">Amount Paid</label>
+							<label class="control-label col-md-4">Amount</label>
 							<div class="col-md-8">
-								<sf:input type="number" path="amount_paid" id="amount_paid" class="form-control"
+								<sf:input type="number" path="amount" id="amount" class="form-control" oninput="calculateOut();" 
 									placeholder="Enter Amount" />
-								<sf:errors path="amount_paid" cssClass="help-block" element="em"/> 
+								<sf:errors path="amount" cssClass="help-block" element="em"/> 
 							</div>
 						</div> 	 
 						
 						
 	 <div class="form-group">
-							<label class="control-label col-md-4">Excess Paid</label>
+							<label class="control-label col-md-4">Paid Amount</label>
 							<div class="col-md-8">
-								<sf:input type="number" path="excess_paid" id="excess_paid" class="form-control"
-									placeholder="Enter Excess Paid" />
-								<sf:errors path="excess_paid" cssClass="help-block" element="em"/> 
+								<sf:input type="number" path="paid_amount" id="paid_amount" class="form-control" oninput="calculateOut();" 
+									placeholder="Enter Paid Amount" />
+								<sf:errors path="paid_amount" cssClass="help-block" element="em"/> 
 							</div>
 						</div> 	 
 						
 						
 	 <div class="form-group">
-							<label class="control-label col-md-4">Total Amount</label>
+							<label class="control-label col-md-4">Outstanding</label>
 							<div class="col-md-8">
-								<sf:input type="number" path="total_amount" id="total_amount" class="form-control"
-									placeholder="Enter Total Amount" />
-								<sf:errors path="total_amount" cssClass="help-block" element="em"/> 
+								<sf:input type="number" path="outstanding" id="outstanding" class="form-control"
+									placeholder="Enter Outstanding Amount" />
+								<sf:errors path="outstanding" cssClass="help-block" element="em"/> 
 							</div>
 						</div> 	 
 						
@@ -181,8 +220,10 @@
 								
 								<!-- Hidden fields for product--> 
 									<sf:hidden path="id"/>
-									<sf:hidden path="code"/>
+									<%-- <sf:hidden path="code"/> --%>
 									<sf:hidden path="supplierId"/>
+									<sf:hidden path="categoryId"/>
+									
 									<%-- <sf:hidden path="active"/>											
 									<sf:hidden path="purchases"/>	
 									<sf:hidden path="views"/> --%>	
@@ -190,6 +231,30 @@
 						</div>						
 										
 					</sf:form>
+
+				<script type="text/javascript">
+
+				   
+			    function calculate() {
+			    	
+			        var myBox1 = document.getElementById('quantity').value; 
+			        var myBox2 = document.getElementById('rate').value;
+			        var amount = document.getElementById('amount'); 
+			        var myResult = myBox1 * myBox2;
+			          document.getElementById('amount').value = myResult;
+
+			    }
+			    
+			    function calculateOut() {
+			        var myBox1 = document.getElementById('amount').value; 
+			        var myBox2 = document.getElementById('paid_amount').value;
+			        var amount = document.getElementById('outstanding'); 
+			        var myResult = myBox1 - myBox2;
+			          document.getElementById('outstanding').value = myResult;
+
+			    }
+			    </script>
+
 
 				</div>
 
@@ -294,21 +359,23 @@
 		   
 		    <!-- Products table for Admin -->
 			<table id="adminProductsTable" class="table table-condensed table-bordered">
-							 
+				 
 				<thead>					
 					<tr>					 
 						<th>Id</th>
-					<!-- 	<th>&#160;</th> -->
+				    	<!-- 	<th>&#160;</th> -->
 					   <!--  <th>Code</th> -->
 						<th>Supplier Name</th>
-						<th>Brick Color</th>
+						<th>Challan No.</th>
+						<th>Category</th>
 						<th>Truck Number</th>
 						<th>Mhl</th>
 						<th>Quantity</th>
+						<th>Rate</th>
 						<th>Date</th>
-						<th>Amount Paid</th>
-						<th>Excess Paid</th>
-						<th>Total Amount</th>	
+						<th>Amount</th>
+						<th>Paid Amount</th>
+						<th>Outstanding</th>	
 						<th>Edit</th>
 						<!-- <th>Edit</th> -->
 					</tr>					
@@ -375,11 +442,11 @@
 				 
 				</tbody> --%>
 				
-				<tfoot>
+				<!-- <tfoot>
 					<tr>					
 						<th>Id</th>
-					<!-- 	<th>&#160;</th> -->
-					  <!--   <th>Code</th> -->
+						<th>&#160;</th>
+					    <th>Code</th>
 						<th>Supplier Name</th>
 						<th>Brick Color</th>
 						<th>Truck Number</th>
@@ -391,7 +458,42 @@
 						<th>Total Amount</th>
 						<th>Edit</th>
 					</tr>									
-				</tfoot>
+				</tfoot> -->
+				  <tfoot>
+            <tr>
+              <!--   <th colspan="5" style="text-align:right">Total:</th>
+ -->                <th>       </th>
+                	<th>       </th>
+					<th>       </th>
+					<th>	   </th>
+					<th> Total </th>
+					<th>	   </th>
+					<th>       </th>
+					<th>       </th>
+					<th>       </th>
+					<th>       </th>
+					<th>       </th>
+					
+					<!-- 	<th>Supplier Name</th>
+						<th>Brick Color</th>
+						<th>Truck Number</th>
+						<th>Mhl</th>
+						<th>Quantity</th>
+						<th>Date</th>
+						<th>Amount Paid</th>
+						<th>Excess Paid</th>
+						<th>Total Amount</th>	
+						<th>Edit</th>
+						<th>Edit</th> -->
+                
+            </tr>
+        </tfoot>
+				
+				
+				
+				
+				
+				
 				
 				
 							

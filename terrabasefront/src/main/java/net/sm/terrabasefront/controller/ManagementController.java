@@ -22,10 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 import net.kzn.onlineshopping.util.FileUploadUtility;
 import net.kzn.onlineshopping.validator.ProductValidator;*/
 import net.sm.terrabasebackend.dao.BrickCategoryDAO;
+import net.sm.terrabasebackend.dao.BrickSupplierDAO;
 import net.sm.terrabasebackend.dao.BrickDAO;
 /*
 import net.sm.terrabasebackend.dao.BrickDAO;*/
 import net.sm.terrabasebackend.dto.BrickCategory;
+import net.sm.terrabasebackend.dto.BrickSupplier;
 import net.sm.terrabasebackend.dto.Brick;
 /*
 import net.sm.terrabasebackend.dto.Brick;*/
@@ -40,6 +42,9 @@ public class ManagementController {
 	
 	@Autowired
 	private BrickCategoryDAO categoryDAO;
+	
+	@Autowired
+	private BrickSupplierDAO supplierDAO;
 	/*
 	@Autowired
 	private BrickDAO brickDAO;*/
@@ -55,11 +60,14 @@ public class ManagementController {
 			mv.addObject("userClickManageProducts", true);
 			mv.addObject("title", "Manage Products");
 			Brick nProduct = new Brick();
+		//	BrickSupplier brSupp = new BrickSupplier();
 			
 			//set few of the fields
 			nProduct.setSupplierId(1);
+			nProduct.setCategoryId(1);
 		//	nProduct.setActive(true);
 			mv.addObject("brick", nProduct);
+			//mv.addObject("bricksupplier", brSupp); 
 			
 			if(operation!=null) {
 				
@@ -243,6 +251,12 @@ public class ManagementController {
 	@ModelAttribute("brickcategories")
 	public List<BrickCategory> getCategories() {
 		return categoryDAO.list();
+	}
+	
+
+	@ModelAttribute("bricksuppliers")
+	public List<BrickSupplier> getSuppliers() {
+		return supplierDAO.list();
 	}
 	
 	

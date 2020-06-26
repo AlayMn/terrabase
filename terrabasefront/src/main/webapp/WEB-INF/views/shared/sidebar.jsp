@@ -3,9 +3,10 @@
        
        
        
+      <div class="list-group">
        
-        <div id="sidebar-container" class="sidebar-expanded d-none d-md-block"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-        <!-- Bootstrap List Group -->
+       <!--  <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu'
+        --> <!-- Bootstrap List Group -->
         <ul class="list-group">
         
             <!-- Separator with title -->
@@ -110,7 +111,7 @@
                 <img src='https://v4-alpha.getbootstrap.com/assets/brand/bootstrap-solid.svg' width="30" height="30" />    
             </li>  -->  
         </ul><!-- List Group END-->
-    </div><!-- sidebar-container END -->
+    </div>sidebar-container END
        
        
               

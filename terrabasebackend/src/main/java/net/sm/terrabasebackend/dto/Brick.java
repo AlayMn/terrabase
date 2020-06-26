@@ -13,6 +13,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.Formula;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,32 +30,46 @@ public class Brick implements Serializable {
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private int id;
-		private String code;
+		//private String code;
 		
 		@NotBlank(message = "Please enter the supplier name!")
 		private String supplier_name;
-		@NotBlank(message = "Please enter the brick color!")
-		private String brick_color;
+		@NotBlank(message = "Please enter the Challan No.!")
+		private String challan_no;
+		
+		@Column(name = "category")
+		//@Min(value = 1, message="Please select at least one value!")
+		private String category;
+		
 		
 		@NotBlank(message = "Please enter the truck number!")
 		private String truck_no;
 		@NotBlank(message = "Please enter the Mhl!")
 		private String mhl;
 	    
+		@Column(name = "quantity")
 		private int quantity;
 		
 		@NotBlank(message = "Please enter the Date!")
 		private String date;
 		
-		@Column(name = "amount_paid")
+		
+		@Column(name = "rate")
 		//@Min(value = 1, message="Please select at least one value!")
-		private double amount_paid;
+		private double rate;
 		
-		@Column(name = "excess_paid")
-		private double excess_paid;
 		
-		@Column(name = "total_amount")
-		private double total_amount;
+
+	    
+		@Column(name = "amount")
+		//@Min(value = 1, message="Please select at least one value!")
+		private double amount;
+		
+		@Column(name = "paid_amount")
+		private double paid_amount;
+		
+		@Column(name = "outstanding")
+		private double outstanding;
 		
 		
 		/*
@@ -83,7 +98,7 @@ public class Brick implements Serializable {
 		
 	public Brick() {
 		
-		this.code = "PRD" + UUID.randomUUID().toString().substring(26).toUpperCase();
+	//	this.code = "PRD" + UUID.randomUUID().toString().substring(26).toUpperCase();
 		
 	}
 	
@@ -96,24 +111,32 @@ public class Brick implements Serializable {
 		public void setId(int id) {
 			this.id = id;
 		}
-		public String getCode() {
+	/*	public String getCode() {
 			return code;
 		}
 		public void setCode(String code) {
 			this.code = code;
-		}
+		}*/
 		public String getSupplier_name() {
 			return supplier_name;
 		}
 		public void setSupplier_name(String supplier_name) {
 			this.supplier_name = supplier_name;
 		}
-		public String getBrick_color() {
-			return brick_color;
+		public String getChallan_no() {
+			return challan_no;
 		}
-		public void setBrick_color(String brick_color) {
-			this.brick_color = brick_color;
+		public void setChallan_no(String challan_no) {
+			this.challan_no = challan_no;
 		}
+		
+		public String getCategory() {
+			return category;
+		}
+		public void setCategory(String category) {
+			this.category = category;
+		}
+		
 		
 		public String getTruck_no() {
 			return truck_no;
@@ -136,6 +159,13 @@ public class Brick implements Serializable {
 			this.quantity = quantity;
 		}
 		
+		public double getRate() {
+			return rate;
+		}
+		public void setRate(double rate) {
+			this.rate = rate;
+		}
+		
 		public String getDate() {
 			return date;
 		}
@@ -145,26 +175,26 @@ public class Brick implements Serializable {
 		
 		
 		
-		public double getAmount_paid() {
-			return amount_paid;
+		public double getAmount() {
+			return amount;
 		}
-		public void setAmount_paid(double amount_paid) {
-			this.amount_paid = amount_paid;
+		public void setAmount(double amount) {
+			this.amount = amount;
 		}
 		
-		public double getExcess_paid() {
-			return excess_paid;
+		public double getPaid_amount() {
+			return paid_amount;
 		}
-		public void setExcess_paid(double excess_paid) {
-			this.excess_paid = excess_paid;
+		public void setPaid_amount(double paid_amount) {
+			this.paid_amount = paid_amount;
 		}
 		
 
-		public double getTotal_amount() {
-			return total_amount;
+		public double getOutstanding() {
+			return outstanding;
 		}
-		public void setTotal_amount(double total_amount) {
-			this.total_amount = total_amount;
+		public void setOutstanding(double outstanding) {
+			this.outstanding = outstanding;
 		}
 		
 		
@@ -187,8 +217,8 @@ public class Brick implements Serializable {
 		// toString for debugging
 		@Override
 		public String toString() {
-			return "Brick [id=" + id + ", code=" + code + ", supplier_name=" + supplier_name + ", brick_color=" + brick_color + 
-					", truck_no=" + truck_no + ", mhl=" + mhl + ", quantity=" + quantity +", date="+ date+", amount_paid="+ amount_paid+", excess_paid="+excess_paid+", total_amount="+total_amount
+			return "Brick [id=" + id + ",  supplier_name=" + supplier_name + ", challan_no=" + challan_no + ", category="+ category +
+					", truck_no=" + truck_no + ", mhl=" + mhl + ", quantity=" + quantity +", rate="+rate+", date="+ date+", amount="+ amount+", paid_amount="+paid_amount+", outstanding="+outstanding
 					+ ", categoryId=" + categoryId + ", supplierId=" + supplierId +  "]";
 		}
 	

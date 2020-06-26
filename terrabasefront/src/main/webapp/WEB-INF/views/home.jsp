@@ -1,6 +1,6 @@
     <div class="container">
 
-        <div class="row">
+        <div class="row2">
 
             <div class="col-md-3">
                

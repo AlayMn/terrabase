@@ -122,8 +122,9 @@ $(function() {
     	{
 
     	var jsonUrl = window.contextRoot + '/json/data/admin/all/bricks';
-    	
-    	
+   // 	var jsonUrl2 = window.contextRoot + '/json/data2/admin/all/suppliers';
+        
+    
     		$adminProductsTable.DataTable( {
     			lengthMenu: [[10,30,50,-1], ['10 Records', '30 Records', '50 Records', 'All']],
     			pageLength: 30,
@@ -146,10 +147,26 @@ $(function() {
     					data: 'supplier_name'
     					
     				},
+    				
+    		/*		{
+						data2: 'id',
+						bSortable: false,
+						mRender:function(data,type,row)
+						{
+							
+							data2: 'name'
+							
+							
+						}
+				},*/
+    				
     				{
-    					data: 'brick_color'
+    					data: 'challan_no'
     				},
     				
+    				{
+    					data: 'category'
+    				},
     				
     				{
     					data: 'truck_no'
@@ -164,6 +181,9 @@ $(function() {
     					data:'quantity'
     					
     				},
+    				{
+    					data: 'rate'
+    				},
     				
     				{
     					data:'date'
@@ -171,17 +191,17 @@ $(function() {
     				},
     				
     				{
-    					data:'amount_paid'
+    					data:'amount'
     					
     				},
     				
     				{
-    					data:'excess_paid'
+    					data:'paid_amount'
     					
     				},
     				
     				{
-    					data:'total_amount'
+    					data:'outstanding'
     					
     				},
     				
@@ -225,16 +245,59 @@ $(function() {
 				}*/
     				
     			
-    			]
+    			],
+
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+         
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+         
+                    // Total over all pages
+                  /*  total = api
+                        .column( 5 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );*/
+         
+                    // Total over this page
+                    quanTotal = api
+                        .column( 5, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    
+                    paidTotal = api
+                    .column( 7, { page: 'current'} )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+                    
+         
+                    // Update footers
+                    $( api.column( 5 ).footer() ).html(
+                        ''+quanTotal /*+' ( '+ total +' total)'*/
+                    );
+                    $( api.column( 7 ).footer() ).html(
+                            ''+paidTotal /*+' ( '+ total +' total)'*/
+                        );
+                }
+            
     			
     		
     		});
     	
-    	
-    	  
     	}
     
     
-    
+   
 	
 });

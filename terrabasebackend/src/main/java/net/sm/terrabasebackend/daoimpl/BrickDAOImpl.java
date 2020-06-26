@@ -53,6 +53,10 @@ public class BrickDAOImpl implements BrickDAO {
 		return query.getResultList();*/
 	}
   
+	 
+	
+	
+	
 	@Override
 	public boolean add(Brick brick) {
 		// TODO Auto-generated method stub
