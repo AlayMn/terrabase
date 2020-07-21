@@ -35,11 +35,31 @@
                     
                     
                     
+                    <a href="#submenuBricks" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-dashboard fa-fw mr-3"></span> 
+                    <span class="menu-collapsed">&nbsp;&nbsp;&nbsp;&nbsp;>Bricks</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
                     
-            
+                 <div id='submenuBricks' class="collapse sidebar-submenu">  
+                    <a href="${contextRoot}/manage/bricks" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>Arrival</span>
+                </a>
+                
+                  <a href="${contextRoot}/manage/mhl" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>MHL</span>
+                </a>
+                
+                   </div>  
+                    
+                    
+                    
+            <%-- 
                 <a href="${contextRoot}/manage/bricks" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">&nbsp;&nbsp;&nbsp;&nbsp;>Bricks</span>
-                </a>
+                </a> --%>
                 <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">&nbsp;&nbsp;&nbsp;&nbsp;>Pots</span>
                 </a>

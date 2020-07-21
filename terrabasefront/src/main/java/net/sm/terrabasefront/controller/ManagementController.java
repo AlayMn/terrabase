@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -132,6 +133,93 @@ public class ManagementController {
 		
 		return mv;
 	}
+	
+	
+	/*@RequestMapping(value="/bricks", method=RequestMethod.POST)
+	public String handleProductSubmission(@Valid @ModelAttribute("brick") Brick mProduct, BindingResult results, Model model, HttpServletRequest request) {
+	*/
+	
+	
+	///  new experiment
+	/*
+	@RequestMapping(value="/{id}/deletebrick", method=RequestMethod.POST)
+	public String deleteBrick(@Valid @ModelAttribute("brick") Brick mProduct, BindingResult results, Model model, HttpServletRequest request) {
+	{
+		String response = brickDAO.delete(mProduct);
+		 
+			return "redirect:/manage/deletebrick?operation=response";
+		 
+	}
+	}
+	 */
+/*
+
+	@RequestMapping(method=RequestMethod.DELETE, value="/{id}/deletebrick")
+	public void deleteBrick(@PathVariable int id) {
+		Brick nProduct = brickDAO.get(id);
+		
+		 brickDAO.delete(nProduct);
+		 
+	}*/
+	
+	
+	/*@RequestMapping(value="/bricks", method=RequestMethod.POST)
+	public String handleProductSubmission(@Valid @ModelAttribute("brick") Brick mProduct, BindingResult results, Model model, HttpServletRequest request) {
+	
+	*/
+	
+	/*@RequestMapping(value="/bricks", method=RequestMethod.POST)
+	public String handleProductSubmission(@Valid @ModelAttribute("brick") Brick mProduct, BindingResult results, Model model, HttpServletRequest request) {
+	*/
+	
+	
+	@RequestMapping(path="/{id}/deletebrick",method= {RequestMethod.GET,RequestMethod.DELETE}) //, method=RequestMethod.DELETE
+	@ResponseBody
+	public String brickDelete(@PathVariable int id) {
+		Brick nProduct = brickDAO.get(id);
+		
+		 brickDAO.delete(nProduct);
+			return "redirect:/manage/bricks?operation=brick";
+	}
+	
+	
+	
+	/*@RequestMapping(value="/{id}/deletebrick", method=RequestMethod.DELETE)
+	@ResponseBody
+	public String handleBrickDelete(@Valid @ModelAttribute("brick") Brick mProduct, BindingResult results, Model model, HttpServletRequest request)
+	{
+  		// is going to fetch the product from the database
+  	//	Brick product = brickDAO.get(id);
+  		//boolean isActive = product.isActive();
+  		
+  		//product.setActive(!product.isActive());
+  		
+  		brickDAO.delete(mProduct);
+  		
+	return "You have successfully deleted the product with id" + mProduct.getId()
+	             ;
+	}
+	*/
+	/*@RequestMapping(value="/{id}/deletebrick", method=RequestMethod.DELETE)
+	@ResponseBody
+	public String handleBrickDelete(@PathVariable int id)
+	{
+  		// is going to fetch the product from the database
+  		Brick product = brickDAO.get(id);
+  		//boolean isActive = product.isActive();
+  		
+  		//product.setActive(!product.isActive());
+  		
+  		brickDAO.delete(product);
+  		
+	return "You have successfully deleted the product with id" + product.getId()
+	             ;
+	}*/
+	
+	
+	
+	
+	
 	
 	/*
 	@RequestMapping(value = "/products", method=RequestMethod.POST)

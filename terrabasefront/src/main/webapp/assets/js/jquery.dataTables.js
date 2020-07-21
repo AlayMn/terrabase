@@ -6718,7 +6718,6 @@
 	
 
 	
-	
 	/**
 	 * Computed structure of the DataTables API, defined by the options passed to
 	 * `DataTable.Api.register()` when building the API.

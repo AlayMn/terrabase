@@ -90,17 +90,19 @@ public class BrickDAOImpl implements BrickDAO {
 	@Override
 	public boolean delete(Brick brick) {
 		// TODO Auto-generated method stub
-try {
-			
-		//	product.setActive(false);
-			// call the update method
-			return this.update(brick);
+		try {			
+			sessionFactory
+					.getCurrentSession()
+						.delete(brick);
+			return true;
 		}
 		catch(Exception ex) {		
 			ex.printStackTrace();			
 		}		
 		return false;	
 	}
+	
+	
 
 	@Override
 	public List<Brick> getBricksByParam(String param, int count) {

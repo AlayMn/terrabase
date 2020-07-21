@@ -361,7 +361,8 @@
 			<table id="adminProductsTable" class="table table-condensed table-bordered">
 				 
 				<thead>					
-					<tr>					 
+					<tr>
+				 	    			 
 						<th>Id</th>
 				    	<!-- 	<th>&#160;</th> -->
 					   <!--  <th>Code</th> -->
@@ -377,8 +378,10 @@
 						<th>Paid Amount</th>
 						<th>Outstanding</th>	
 						<th>Edit</th>
+						<th>Delete</th>
 						<!-- <th>Edit</th> -->
-					</tr>					
+					</tr>	
+					
 				</thead>
 				
 				<%-- <tbody>
@@ -462,12 +465,15 @@
 				  <tfoot>
             <tr>
               <!--   <th colspan="5" style="text-align:right">Total:</th>
- -->                <th>       </th>
+ -->                 <th>       </th>
+  				    <th>       </th>
                 	<th>       </th>
 					<th>       </th>
 					<th>	   </th>
-					<th> Total </th>
+					<th> 	   </th>
 					<th>	   </th>
+					<th>       </th>
+					<th>       </th>
 					<th>       </th>
 					<th>       </th>
 					<th>       </th>
@@ -499,16 +505,40 @@
 							
 			</table>
 		
-			
+		   <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+             <h3 class="modal-title pull-right" id="myModalLabel">!!!!!!xx</h3>
+
+        </div>
+        <div class="modal-body">
+             <p class="alert alert-danger pull-right">!!!!!!!! xxx </p>
+
+        </div>
+
+        <div class="modal-footer">
+            <a href="" type="button" class="btn btn-danger" id="btnDelteYes">xx</a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">xx</button>
+        </div>
+
+    </div>
+
+</div>
 		
 		
 		</div>
 	
-					
-				
+			
 		
 	</div>
 	
 	</div>
 	</div>
+	
+	
+	
+	
 <!-- </div> -->
